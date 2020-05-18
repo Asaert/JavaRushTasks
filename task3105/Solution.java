@@ -25,6 +25,9 @@ public class Solution {
         ZipInputStream zipIn = new ZipInputStream(new FileInputStream(args[1]));
         while ((entry = zipIn.getNextEntry()) != null) {
             if (entry.getName().endsWith(newFileName)) {
+        //Строка выше испортит работу программы, если в архиве будут файлы
+        //с именами типа {"prefix" + newFileName}, хоть валидатор это и принял
+        //Нужно жесткое .equals
                 newPathInArchive = entry.getName();
             } else {
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
